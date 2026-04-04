@@ -11,7 +11,7 @@ import paymentRouter from "./routes/payment.router.js"
 
 const app = express()
 app.use(cors({
-origin:"http://localhost:5173",
+origin:"https://intervai-1-qn0q.onrender.com",
 credentials:true
 }))
 
