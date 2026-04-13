@@ -1,308 +1,376 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import AuthModel from "@/components/AuthModel";
-import { HiSparkles } from "react-icons/hi";
-import { motion } from "motion/react";
+import { AI_TAGS, LOGOS, ROLES, SLOTS } from "@/lib/data";
+import {
+  GoldTitle,
+  GrayTitle,
+  SectionHeading,
+  SectionLabel,
+} from "@/components/reusables";
+import { Bot, Wallet } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { BsBarChart, BsClock, BsFileEarmarkText, BsMic, BsRobot } from "react-icons/bs";
-import hrImg from "../assets/HR.png"
-import techImg from "../assets/tech.png"
-import confidenceImg from "../assets/confi.png"
-import creditImg from "../assets/credit.png"
-import evalImg from "../assets/ai-ans.png"
-import resumeImg from "../assets/resume.png"
-import pdfImg from "../assets/pdf.png"
-import analyticsImg from "../assets/history.png"
+// import PricingSection from "@/components/PricingSection";
 import Footer from "@/components/Footer"
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import Pricing from "./Pricing";
+
+
+function MockUI({ rows = 3 }) {
+  const widths = ["w-4/5", "w-3/5", "w-2/5", "w-4/5", "w-1/2"];
+  const colors = [
+    "bg-white/5",
+    "bg-white/5",
+    "bg-amber-400/15",
+    "bg-white/5",
+    "bg-white/5",
+  ];
+
+  return (
+    <div className="mt-5 rounded-xl bg-[#141417] border border-white/10 overflow-hidden">
+      <div className="h-9 bg-white/5 border-b border-white/10 flex items-center px-3.5 gap-1.5">
+        <span className="w-2 h-2 rounded-full bg-[#ff5f57]" />
+        <span className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
+        <span className="w-2 h-2 rounded-full bg-[#28c840]" />
+      </div>
+      <div className="p-4 flex flex-col gap-2">
+        {Array.from({ length: rows }).map((_, i) => (
+          <div
+            key={i}
+            className={`h-2 rounded-full ${widths[i]} ${colors[i]}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+
+export function BentoCard({ icon, title, desc, children, className = "" }) {
+  return (
+    <div
+      className={`relative bg-[#0f0f11] border border-white/10 hover:border-amber-400/20 rounded-2xl p-9 h-full transition duration-300 overflow-hidden ${className}`}
+    >
+      <div className="absolute inset-0 bg-linear-to-br from-amber-400/5 via-transparent pointer-events-none" />
+
+      <span className="w-11 h-11 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-xl mb-5">
+        {icon}
+      </span>
+
+      <h3 className="font-serif text-xl tracking-tight mb-2">{title}</h3>
+
+      <p className="text-sm text-stone-400 leading-relaxed">{desc}</p>
+
+      {children}
+    </div>
+  );
+}
+
 
 const Home = () => {
   const { userData } = useSelector((state) => state.user);
   const [showAuth, setShowAuth] = useState(false);
   const navigate = useNavigate();
 
-  const features = [
-    {
-      icon: <BsRobot size={24} />,
-      step: "STEP 1",
-      title: "Role & Experience Selection",
-      desc: "AI adjusts difficulty based on selected job role.",
-    },
-    {
-      icon: <BsMic size={24} />,
-      step: "STEP 2",
-      title: "Smart Voice Interview",
-      desc: "Dynamic follow-up questions based on your answers.",
-    },
-    {
-      icon: <BsClock size={24} />,
-      step: "STEP 3",
-      title: "Timer Based Simulation",
-      desc: "Real interview pressure with time tracking.",
-    },
-  ];
-
+ 
   return (
-    <div className="min-h-screen bg-[#ebfdfe] flex flex-col">
+    <div className="bg-black min-h-screen overflow-x-hidden">
       <Navbar />
 
-      <div className="flex-1 px-6 py-20">
-
-        <div className="max-w-6xl mx-auto">
-        {/* Top Tag */}
-        <div className="flex justify-center mb-6">
-          <div className="text-gray-600 text-sm px-4 py-2 rounded-full flex items-center gap-2">
-            <HiSparkles size={16} className="text-indigo-600" />
-            AI Powered Smart Interview Platform
-          </div>
-        </div>
-
+      
+ <section className="relative min-h-screen grid grid-cols-1 lg:grid-cols-5 px-4 sm:px-8 pt-28 sm:pt-32 pb-20 overflow-hidden">
+   
         {/* Hero Section */}
-        <div className="text-center mb-28">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-6xl font-semibold leading-tight max-w-4xl mx-auto"
-          >
-            Practice Interview with
-            <span className="relative inline-block ml-2">
-              <span className="bg-indigo-100 text-[#3440e4] px-5 py-1 rounded-full">
-                AI Intelligence
-              </span>
-            </span>
-          </motion.h1>
+        <div className="col-span-full lg:col-span-3 flex flex-col items-center justify-center text-center lg:-rotate-2">
+          <Badge variant="gold">Powered by AI — Now in Beta</Badge>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="text-gray-500 mt-6 max-w-2xl mx-auto text-lg"
-          >
+           <h1 className="font-serif relative text-5xl sm:text-6xl lg:text-7xl tracking-tighter max-w-4xl">
+            <GrayTitle> Practice Interview with</GrayTitle>
+            <br />
+            <GoldTitle>  AI Intelligence</GoldTitle>
+          </h1>
+
+             <p className="relative text-sm sm:text-base md:text-lg text-stone-400 max-w-xl mt-6 leading-relaxed">
             Role-based mock interviews with smart follow-ups, adaptive
-            difficulty and real-time performance evaluation
-          </motion.p>
+            difficulty and real-time performance evaluation.
+          </p>
+         
 
-          {/* Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mt-10">
-            <motion.button
-              onClick={() => {
+           <div className="relative flex justify-center gap-2 sm:gap-4 mt-10 sm:w-auto">
+         
+              <Button variant="gold" size="hero"
+               onClick={() => {
                 if (!userData) {
                   setShowAuth(true);
                   return;
                 }
                 navigate("/interview");
-              }}
-              whileHover={{ opacity: 0.9, scale: 1.03 }}
-              whileTap={{ opacity: 1, scale: 0.98 }}
-              className="bg-black text-white px-10 py-3 rounded-full shadow-md"
-            >
-              Start Interview
-            </motion.button>
+              }}>
+                 Start Interview
+              </Button>
+           
 
-            <motion.button
-              onClick={() => {
+         
+              <Button variant="outline" size="hero"
+               onClick={() => {
                 if (!userData) {
                   setShowAuth(true);
                   return;
                 }
                 navigate("/history");
-              }}
-              whileHover={{ opacity: 0.9, scale: 1.03 }}
-              whileTap={{ opacity: 1, scale: 0.98 }}
-              className="bg-white text-black border px-10 py-3 rounded-full shadow-md"
-            >
-              View History
-            </motion.button>
+              }}>
+                Browse Interviewers →
+              </Button>
+
+               
           </div>
+          
+
         </div>
 
-        {/* Features Section */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-10 mb-28">
-          {features.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 + index * 0.2 }}
-              whileHover={{ scale: 1.06 }}
-              className={`relative bg-white rounded-3xl border-2 border-indigo-100 
-              hover:border-indigo-500 p-10 w-80 max-w-[90%] shadow-md hover:shadow-2xl
-              transition-all duration-300
-              ${index === 0 ? "rotate-[-4deg]" : ""}
-              ${index === 1 ? "rotate-[-3deg] md:-mt-6 shadow-xl" : ""}
-              ${index === 2 ? "rotate-[3deg]" : ""}
-              `}
-            >
-              {/* Icon */}
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white border-2 
-              border-indigo-500 text-indigo-600 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg">
-                {item.icon}
-              </div>
+           <div className="col-span-full lg:col-span-2 flex items-center justify-center lg:justify-start mt-12 lg:mt-0 lg:rotate-3">
+          <img
+            src="/hero.png"
+            alt="Hero illustration"
+            width={600}
+            height={400}
+            className="w-full max-w-md sm:max-w-lg lg:max-w-none h-auto"
+            priority
+          />
 
-              {/* Content */}
-              <div className="pt-10 text-center">
-                <div className="text-xs text-indigo-600 font-semibold mb-2 tracking-wider">
-                  {item.step}
-                </div>
-                <h3 className="font-semibold mb-3 text-lg">{item.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            </motion.div>
+          {/* <CodeDemo duration={30000} writing /> */}
+        </div>
+
+ </section>
+<section className="relative z-10 border-y border-white/10 py-14">
+        <p className="text-center text-xs font-medium text-stone-600 tracking-widest uppercase mb-8">
+          Interviewees landed roles at
+        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-24 px-6">
+          {LOGOS.map((l) => (
+            <img
+              key={l.alt}
+              src={l.src}
+              alt={l.alt}
+              width={50}
+              height={50}
+              className="h-6 w-auto opacity-60 grayscale"
+            />
           ))}
         </div>
-
-{/* capabilities */}        
-
-<div className="mb-32">
-  <motion.h2
-  initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl font-semibold text-center mb-16"
-  >
-Advanced AI{" "}
-<span className="text-indigo-600">Capabilities</span>
-  </motion.h2>
+ </section>
 
 
-  <div className="grid md:grid-cols-2 gap-10">
-    {
-      [
-        {
-          image:evalImg,
-          icon:<BsBarChart size={20} />,
-          title:"AI Answer Evaluation",
-          desc:"Scores communication, technical accuracy and confidence."
-        },
-        {
-          image:resumeImg,
-          icon:<BsFileEarmarkText size={20} />,
-          title:"Resume Based Interview",
-          desc:"Project-specific questions based on uploaded resume."
-        },
-        {
-          image:pdfImg,
-          icon:<BsBarChart size={20} />,
-          title:"Downloadable PDF Report",
-          desc:"Detailed strengths, weaknesses and improvement insights."
-        },
-        {
-          image:analyticsImg,
-          icon:<BsBarChart size={20} />,
-          title:"History & Analytics",
-          desc:"Track progress with performance graphs and topic analysis."
-        },
-      ].map((item , index)=>(
-        <motion.div key={index}
-        initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 + index * 0.1 }}
-              whileHover={{scale:1.02}}
-              className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all">
-                <div className="flex flex-col md:flex-row items-center gap-3">
+    <section className="relative z-10 py-28 max-w-5xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <SectionLabel>Features</SectionLabel>
+          <SectionHeading
+            gray="Everything you need,"
+            gold="nothing you don't"
+          />
+        </div>
 
-                <div className="w-full md:w-1/2 flex justify-center">
-                  <img src={item.image} alt={item.title}
-                  className='w-full h-auto object-contain max-h-64'/>
+        <div className="grid grid-cols-12 gap-4">
+          <div className="col-span-12 md:col-span-7">
+            <BentoCard
+              icon={<Bot size={20} className="text-amber-400" />}
+              title={<GrayTitle>AI Question Generator</GrayTitle>}
+              desc="AI co-pilot generating role-specific questions on demand — system design, behavioural, DSA — all tailored to the candidate's level."
+            >
+              <div className="flex flex-wrap gap-2 mt-5">
+                {AI_TAGS.map((t) => (
+                  <Badge key={t.label} variant={t.active ? "gold" : "outline"}>
+                    {t.label}
+                  </Badge>
+                ))}
+              </div>
+            </BentoCard>
+          </div>
+
+          <div className="col-span-12 md:col-span-5">
+            <BentoCard
+              icon={<Wallet size={16} className="text-amber-400" />}
+              title={<GrayTitle>Credit System</GrayTitle>}
+              desc="Subscribe for monthly credits. Every interview 50 credit deducted"
+            >
+              <div className="mt-5 rounded-xl bg-[#141417] border border-white/10 p-5 flex justify-between items-end">
+                <div>
+                  <p className="text-xs text-stone-600 mb-1">Your balance</p>
+                  <p className="font-serif text-4xl leading-none bg-linear-to-br from-amber-300 to-amber-500 bg-clip-text text-transparent">
+                    28
+                  </p>
+                  <p className="text-xs text-stone-600 mt-1">
+                    credits remaining
+                  </p>
                 </div>
 
-                <div className="w-full md:w-1/2">
-                  <div className="bg-indigo-50 text-indigo-600 w-12 h-12
-                  rounded-xl flex items-center justify-center mb-6">
-                    {item.icon}
-                  </div>
-                  <h3 className="font-semibold mb-3 text-xl">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-                </div>
+                <Badge variant="secondary">+10 this month</Badge>
+              </div>
+            </BentoCard>
+          </div>
 
-                </div>
+          <div className="col-span-12 md:col-span-4 text-white">
+            <BentoCard
+              icon="📹"
+              title="HD View"
+              desc="Powered by AI and instant playback as — all built in."
+            >
+              <MockUI rows={3} />
+            </BentoCard>
+          </div>
 
-        </motion.div>
-      ))
-    }
-  </div>
-</div>
+          <div className="col-span-12 md:col-span-4 text-white">
+            <BentoCard
+              icon="💬"
+              title="Persistent Chat"
+              desc="Prept keeps every interaction in sync — collaborate, share insights, and follow up seamlessly in a single intelligent thread"
+            />
+          </div>
 
+          <div className="col-span-12 md:col-span-4 text-white">
+            <BentoCard
+              icon="🔒"
+              title="Security "
+              desc="Bot protection, rate limiting, and abuse prevention baked into every API route."
+            />
+          </div>
 
-{/* Multiple Interview Modes */}   
-<div className="mb-32">
-  <motion.h2
-  initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl font-semibold text-center mb-16"
-  >
-Multiple Interview{" "}
-<span className="text-indigo-600">Modes</span>
-  </motion.h2>
+          <div className="col-span-12 md:col-span-6">
+            <BentoCard
+              icon="📊"
+              title={<GrayTitle>AI Feedback Reports</GrayTitle>}
+              desc="Post-interview analysis by Gemini with actionable insights."
+            >
+              <MockUI rows={5} />
+            </BentoCard>
+          </div>
 
+          <div className="col-span-12 md:col-span-6">
+            <BentoCard
+              icon="🗓️"
+              title={<GoldTitle>Anytime Pratice</GoldTitle>}
+              desc="Practice interviews whenever you want with Prept — no scheduling needed, just instant AI-powered sessions on demand."
+            >
+              <div className="flex flex-wrap gap-2 mt-5">
+                {SLOTS.map((s) => (
+                  <span
+                    key={s.label}
+                    className={`text-xs px-3 py-1.5 rounded-lg border ${s.cls}`}
+                  >
+                    {s.label}
+                  </span>
+                ))}
+              </div>
+            </BentoCard>
+         </div>
 
-  <div className="grid md:grid-cols-2 gap-10">
-    {
-      [
-        {
-          image:hrImg,        
-          title:"HR Interview Mode ",
-          desc:"Behavioral and communication based evaluation."
-        },
-        {
-          image:techImg,       
-          title:"Technical Mode",
-          desc:"Deep technical questioning based on selected mode."
-        },
-        {
-          image:confidenceImg,
-          title:"Confidence Detection",
-          desc:"Basic tone and voice analysis insights."
-        },
-        {
-          image:creditImg,
-          title:"Credits System",
-          desc:"Unlock premium interview sessions easily."
-        },
-      ].map((item , index)=>(
-        <motion.div key={index}
-        initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 + index * 0.1 }}
-              whileHover={{y:-6}}
-              className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all">
-                <div className="flex justify-between items-center gap-6">
-
-                <div className="w-1/2">
-
-                 <h3 className="font-semibold mb-3 text-xl">
-                    {item.title}
-                  </h3>
-                   <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-                  
-                </div>
-                <div className="w-1/2 flex justify-end">
-
-               <img src={item.image} alt={item.title}
-                  className='w-28 h-28 f object-contain '/>
-                  </div>
+ 
+        
+          
+        </div>
+      </section>
 
 
+        <section className="relative z-10 pb-28 max-w-5xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <SectionLabel>Who it&apos;s for</SectionLabel>
+          <SectionHeading gray="Built for both sides" gold="of the table" />
+        </div>
 
-                </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {ROLES.map((role) => (
+            <div
+              key={role.label}
+              className="relative bg-[#0f0f11] border border-white/10 hover:border-amber-400/20 rounded-2xl p-12 h-full transition duration-300 overflow-hidden"
+            >
+              <div className="absolute bottom-0 right-0 w-48 h-48 rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.05)_0%,transparent_70%)] pointer-events-none" />
 
-        </motion.div>
-      ))
-    }
-  </div>
-</div>
+              <span className="inline-block text-xs font-semibold text-amber-400 tracking-widest uppercase border border-amber-400/20 bg-amber-400/10 rounded-full px-3 py-1.5 mb-5">
+                {role.label}
+              </span>
+
+              <h3 className="font-serif text-2xl tracking-tight mb-4">
+                {role.title}
+              </h3>
+
+              <p className="text-sm text-stone-400 leading-relaxed mb-8">
+                {role.desc}
+              </p>
+
+              <ul className="space-y-3">
+                {role.perks.map((p) => (
+                  <li key={p} className="flex gap-3 text-sm text-stone-400">
+                    <span className="mt-0.5 min-w-4 h-4 rounded-full bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-xs text-amber-400">
+                      ✓
+                    </span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section className="relative z-10 pb-28 max-w-5xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <SectionLabel>Pricing</SectionLabel>
+          <SectionHeading
+            gray="Simple, transparent"
+            gold="credit-based plans"
+          />
+          <p className="text-stone-400 mt-3 text-sm">
+            Each credit = one session. Unused credits roll over.
+          </p>
+        </div>
+
+     <Pricing showBackButton={false} />
+      </section>
+
+
+      
+
+      {/* CTA */}
+      <section className="relative z-10 pb-28 max-w-5xl mx-auto px-6">
+        <div className="relative border border-amber-400/20 rounded-3xl px-3 sm:px-16 py-20 bg-linear-to-br from-amber-400/5 text-center overflow-hidden">
+     
+
+          <h2 className="font-serif relative text-4xl md:text-5xl leading-tight tracking-tight mb-4">
+            <GrayTitle>Your next interview</GrayTitle>
+            <br />
+            <GoldTitle>starts here</GoldTitle>
+          </h2>
+
+          <p className="relative text-stone-400 font-light text-sm mb-11">
+            Join thousands of engineers already levelling up on Prept.
+          </p>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/interview" className="relative">
+              <Button variant="gold" size="hero">
+                Get started
+              </Button>
+            </a>
+
+            <a href="/history" className="relative">
+              <Button variant="outline" size="hero">
+                Browse Interviewers →
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
 
      
- </div>
 
-
-</div>
+     
+ 
       {/* Auth Modal */}
       {showAuth && <AuthModel onClose={() => setShowAuth(false)} />}
         <Footer />

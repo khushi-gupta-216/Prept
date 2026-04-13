@@ -1,20 +1,29 @@
 import React from 'react'
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar'
-
 import 'react-circular-progressbar/dist/styles.css';
-const Timer = ({timeLeft,totalTime}) => {
+
+const Timer = ({ timeLeft, totalTime }) => {
   const percentage = (timeLeft / totalTime) * 100;
+
+  // 🔥 Dynamic color based on time left
+  let color = "#f59e0b"; // amber (default)
+
+  if (percentage < 50) color = "#f97316"; // orange
+  if (percentage < 25) color = "#ef4444"; // red (urgent)
+
   return (
-    <div className='w-20 h-20'>
-        <CircularProgressbar value={percentage} text={`${timeLeft}s`} 
+    <div className="w-24 h-24">
+      <CircularProgressbar
+        value={percentage}
+        text={`${timeLeft}s`}
         styles={buildStyles({
           strokeLinecap: "round",
-          trailColor: "#e0e7ff",  // light blue for background trail
-pathColor: "#3b82f6",   // medium blue for the path
-textSize: "20px",
-textColor: "#1e3a8a"    // dark blue for the text
+          trailColor: "#1f1f23", // dark background
+          pathColor: color,
+          textColor: color,
+          textSize: "18px",
         })}
-        />
+      />
     </div>
   )
 }

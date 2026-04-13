@@ -11,7 +11,7 @@ import Pricing from "./pages/Pricing";
 import InterviewReport from "./pages/InterviewReport";
 axios.defaults.withCredentials = true;
 
-export const ServerUrl = "http://localhost:8000";
+export const ServerUrl = "https://intervai-yvcu.onrender.com";
 
 const App = () => {
   const dispatch = useDispatch();

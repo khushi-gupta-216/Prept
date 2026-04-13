@@ -26,78 +26,104 @@ useEffect(() =>{
 
 
   return (
-  <div className='min-h-screen bg-linear-to-br from-gray-50 to-blue-50  py-10'>
-    <div className='w-[90vw] lg:w-[70vw] max-w-[90%] mx-auto'>
-      <div className='mb-10 w-full flex items-start gap-4  flex-wrap'>
-       <button
-       onClick={()=>navigate('/')}
-       className='mt-1 p-3 rounded-full bg-white shadow hover:shadow-md transition'
-       ><FaArrowLeft/></button>
+  <div className="min-h-screen bg-black py-10">
+    <div className="w-[90vw] lg:w-[70vw] mx-auto">
+
+      {/* HEADER */}
+      <div className="mb-10 flex items-start gap-4 flex-wrap">
+        <button
+          onClick={() => navigate('/')}
+          className="p-3 rounded-full bg-[#141417] border border-white/10 
+          hover:border-amber-500/30 transition"
+        >
+          <FaArrowLeft className="text-amber-400" />
+        </button>
+
         <div>
-          <h1 className='text-3xl font-bold flex-nowrap text-gray-800'>Interview History </h1>
-          <p className='text-gray-500 mt-2'>Track your past Interviews & Performance</p>
+          <h1 className="text-3xl font-bold text-white">
+            Interview History
+          </h1>
+          <p className="text-stone-400 mt-1">
+            Track your past interviews & performance
+          </p>
         </div>
       </div>
 
-    {interviews.length === 0 ? (
-  <div className='bg-white p-10 rounded-2xl shadow text-center'>
-    <p className='text-gray-500'>
-      No Interviews found. Start your first interview.
-    </p>
-  </div>
-) : (
-  <div className='grid gap-3'>
-   {interviews.map((item, index) => (
-  <div
-    key={index}
-    onClick={()=>navigate(`/report/${item._id}`)}
-    className='bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100'
-  >
-  <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
-    <div>
-      <h2 className='text-lg font-semibold text-gray-800'>
-      {item.role}
-    </h2>
-    <p className='text-gray-500 text-sm mt-1'>
-      Experience: {item.experience} 
-    </p>
-    <p className='text-gray-500 text-sm'>
-      Mode: {item.mode}
-    </p>
-   
-    <p className='text-gray-400 text-xs mt-2'>
-  {new Date(item.createdAt).toLocaleDateString()}
-</p>
-      </div>
+      {/* EMPTY STATE */}
+      {interviews.length === 0 ? (
+        <div className="bg-[#0f0f11] border border-white/10 p-10 rounded-2xl text-center">
+          <p className="text-stone-400">
+            No interviews found. Start your first interview 🚀
+          </p>
+        </div>
+      ) : (
 
-<div className='flex items-center gap-6'>
-    <p className='text-blue-600 font-bold text-xl'>
-      Score: {item.finalScore || 0}/10
-    </p>
-    <p className='text-gray-400 text-xs'>
-      Overall Score
-    </p>
+        /* LIST */
+        <div className="space-y-4">
+          {interviews.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => navigate(`/report/${item._id}`)}
+              className="bg-[#0f0f11] border border-white/10 p-6 rounded-2xl 
+              hover:border-amber-500/30 hover:bg-[#141417] transition cursor-pointer"
+            >
 
-  </div>
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-<span
-  className={`px-4 py-1 rounded-full text-xs font-medium ${
-    item.status === "Completed"
-      ? "bg-blue-100 text-blue-700"
-      : "bg-yellow-100 text-yellow-700"
-  }`}
->
-  {item.status}
-</span>
+                {/* LEFT INFO */}
+                <div>
+                  <h2 className="text-lg font-semibold text-white">
+                    {item.role}
+                  </h2>
+
+                  <p className="text-stone-400 text-sm mt-1">
+                    Experience: {item.experience}
+                  </p>
+
+                  <p className="text-stone-400 text-sm">
+                    Mode: {item.mode}
+                  </p>
+
+                  <p className="text-stone-500 text-xs mt-2">
+                    {new Date(item.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+
+                {/* RIGHT SIDE */}
+                <div className="flex items-center gap-6">
+
+                  {/* SCORE */}
+                  <div className="text-right">
+                    <p className="text-amber-400 font-bold text-xl">
+                      {item.finalScore || 0}/10
+                    </p>
+                    <p className="text-stone-500 text-xs">
+                      Score
+                    </p>
+                  </div>
+
+                  {/* STATUS */}
+                  <span
+                    className={`px-4 py-1 rounded-full text-xs font-medium ${
+                      item.status === "Completed"
+                        ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                        : "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
+                    }`}
+                  >
+                    {item.status}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-   
   </div>
-))}
-  </div>
-)}
-    </div>
-  </div>
-  )
+);
 }
 
 export default InterviewHistory

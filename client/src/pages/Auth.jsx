@@ -9,7 +9,7 @@ import axios from 'axios';
 import { ServerUrl } from '@/App';
 import { setUserData } from '@/redux/userSlice'
 import { useDispatch } from 'react-redux';
-const Auth = ({isModal = false}) => {
+const Auth = ({isModel = false}) => {
 const dispatch = useDispatch()
 
 const handleGoogleAuth = async () =>{
@@ -33,24 +33,24 @@ const handleGoogleAuth = async () =>{
   return (
    <>
    <div className={`w-full 
-    ${isModal ? "py-4" : "min-h-screen bg-[#ebfdfe] flex items-center justify-center px-6 py-20"} `}>
+    ${isModel ? "bg-[#0c0b0b] flex items-center justify-center px-1 py-5 rounded-3xl  " : " bg-[#0c0b0b] flex items-center justify-center px-1 py-5 rounded-2xl"} `}>
     <motion.div 
     initial={{opacity:0 , y:-40}}
     animate={{opacity:1 , y:0}}
     transition={{duration:1.05}}
    className={`w-full
- ${isModal 
+ ${isModel 
    ? "max-w-md p-8 rounded-3xl" 
    : "max-w-lg p-12 rounded-[32px]"
- } bg-[#c5e5fa] shadow-2xl border border-gray-200`}>
+ }   `}>
       <div className='flex items-center justify-center gap-3 mb-6 '>
-        <div className='bg-black text-white p-2 rounded-lg'>
+        <div className=' text-white p-1 rounded-lg'>
         <BsRobot size={18}/>
         </div>
-        <h2 className='font-semibold text-lg'>IntervAI</h2>
+        <h2 className='font-semibold text-lg'>Prept</h2>
       </div>
     <h1 className='text-2xl md:text-3xl font-semibold text-center leading-snug mb-4'>Continue with
-      <span className='bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full inline-flex items-center gap-2'>
+      <span className=' text-amber-300 px-3 py-1 rounded-full inline-flex items-center gap-2'>
         <RiSparkling2Line />
         AI Smart Interview
       </span>

@@ -10,10 +10,23 @@ import paymentRouter from "./routes/payment.router.js"
 
 
 const app = express()
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://intervai-1-qn0q.onrender.com"
+];
+
 app.use(cors({
-origin:"http://localhost:5173",
-credentials:true
-}))
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
+  credentials: true
+}));
 
 app.use(express.json())
 app.use(cookieParser())
