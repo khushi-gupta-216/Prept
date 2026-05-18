@@ -1,4 +1,4 @@
-# IntervAI 🚀
+# Prept 🚀
 
 IntervAI is an AI-powered interview preparation platform that helps users practice real-time interviews, improve communication skills, and get performance insights.
 
@@ -21,6 +21,9 @@ IntervAI is an AI-powered interview preparation platform that helps users practi
 ## ⚡ Getting Started
 
 ### Clone the repo
+
+## Project URL
+https://intervai-1-qn0q.onrender.com/
 ```bash
 git clone https://github.com/khushi-gupta-216/IntervAI.git
 cd IntervAI
